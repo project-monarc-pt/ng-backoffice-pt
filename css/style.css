@@ -1,49 +1,220 @@
+@import "colors.css";
 
-a {
-  color: black;
+.md-main-content > [ui-view="main"] {
+  padding-left: 14px;
+  padding-right: 14px;
 }
 
-.logo-cases-bg {
-  background: url('../img/bg-cases.png') no-repeat left center;
+.bo-auth-page {
+  background: var(--bo-color-auth-page-bg);
+}
+
+.bo-auth-panel {
+  background: var(--bo-color-surface-white);
+  color: var(--bo-color-text-primary);
+  z-index: 2;
+  padding: 25px;
   width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: 1;
+  max-width: 650px;
+  box-sizing: border-box;
+  border-radius: 2px;
 }
 
-.md-main-content {
-  background-color: #FAFAFA; }
-
-
-.md-html-table td, .md-html-table th {
-  border: 1px solid #DDDDDD;
-  padding: 4px;
+.bo-auth-panel .md-button {
+    color: var(--bo-color-text-primary);
+    margin: 0;
 }
 
-.md-html-table td[disabled] {
-  background: #CCCCCC;
+.bo-auth-panel .md-button.md-primary {
+    color: var(--bo-color-brand-primary);
 }
 
-.md-html-table tbody tr {
-  transition: 0.25s background-color;
-}
-.md-html-table tbody tr:nth-child(even) {
-  background-color: rgba(1, 1, 1, 0.02);
-}
-.md-html-table tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.07);
+.bo-auth-panel .client-brand-logo {
+    width: 250px;
+    height: auto;
+    margin: 25px;
 }
 
-.kb-sub-tabs md-tabs-canvas{
-    margin-right: 190px;
+.bo-auth-panel md-input-container:not(.md-input-focused) .md-input {
+    color: var(--bo-color-brand-black);
+    border-color: var(--bo-color-brand-black) !important;
+    border-bottom-width: 1px !important;
 }
 
-.kb-sub-tabs md-next-button{
-    right:170px ;
+/* Error border must win over non-focused border color. */
+.bo-auth-panel md-input-container.md-input-invalid .md-input,
+.bo-auth-panel md-input-container.md-input-invalid.md-input-focused .md-input,
+.bo-auth-panel md-input-container .md-input.ng-invalid.ng-dirty,
+.bo-auth-panel md-input-container .md-input.ng-invalid.ng-touched,
+.bo-auth-panel md-input-container .md-input.ng-invalid.ng-not-empty {
+    border-color: var(--bo-color-error) !important;
+    border-bottom-width: 2px !important;
 }
 
-md-switch.no-margin {
-  margin: 0;
-  height: 0;
-  line-height: 0;
+.bo-sidenav-logo {
+    width: 150px;
+    height: auto;
+    margin: 25px;
+}
+
+.bo-sidenav-header {
+    position: relative;
+}
+
+.bo-sidenav-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    margin: 0;
+}
+
+md-sidenav.md-sidenav-left {
+    font-size: 1.2em;
+    background: var(--bo-color-brand-black);
+    color: var(--bo-color-surface-white);
+    scrollbar-width: thin;
+    scrollbar-color: var(--cor-05) var(--bo-color-sidenav-scrollbar-track-soft);
+}
+
+md-sidenav.md-sidenav-left::-webkit-scrollbar {
+    width: 10px;
+}
+
+md-sidenav.md-sidenav-left::-webkit-scrollbar-track {
+    background: var(--bo-color-sidenav-scrollbar-track);
+    border-left: 1px solid var(--bo-color-sidenav-scrollbar-track-border);
+}
+
+md-sidenav.md-sidenav-left::-webkit-scrollbar-thumb {
+    background: var(--cor-05);
+    border-radius: 999px;
+    border: 2px solid var(--bo-color-brand-black);
+}
+
+md-sidenav.md-sidenav-left::-webkit-scrollbar-thumb:hover {
+    background: var(--cor-05);
+}
+
+md-sidenav.md-sidenav-left md-list-item p {
+    font-weight: normal;
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-topic {
+    margin-top: 6px;
+    background: var(--bo-color-sidenav-topic-bg);
+    box-shadow: none;
+    border-top: 1px solid var(--bo-color-sidenav-topic-border);
+    border-bottom: 1px solid var(--bo-color-sidenav-topic-border);
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-topic p {
+    font-size: 0.95em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-topic md-icon {
+    color: var(--bo-color-surface-white);
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic {
+    margin-left: 0;
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic > .md-no-style {
+    padding-right: 0;
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic .md-list-item-inner {
+    border-left: 0;
+    padding-right: 16px;
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic:hover {
+    background: var(--bo-color-sidenav-subtopic-hover);
+    box-shadow: none;
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic._md-button-wrap > .md-button:first-child:hover,
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic._md-button-wrap > .md-button:first-child:focus,
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic._md-button-wrap > .md-button:first-child.md-focused,
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic .md-no-style.md-button:hover,
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic .md-no-style.md-button:focus,
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic .md-no-style.md-button.md-focused {
+    background: var(--bo-color-sidenav-subtopic-hover) !important;
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic._md-button-wrap > .md-button:first-child:active .md-list-item-inner,
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic .md-no-style.md-button:active .md-list-item-inner {
+    background: transparent;
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic._md-button-wrap > .md-button:first-child:active,
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic .md-no-style.md-button:active {
+    background: var(--bo-color-sidenav-subtopic-active) !important;
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic._md-button-wrap > .md-button:first-child > .md-ripple-container,
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic .md-no-style.md-button > .md-ripple-container {
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic p {
+    font-size: 0.94em;
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic md-icon {
+    font-size: 20px;
+    width: 20px;
+    min-width: 20px;
+}
+
+md-sidenav.md-sidenav-left .md-button,
+md-sidenav.md-sidenav-left md-icon,
+md-sidenav.md-sidenav-left p,
+md-sidenav.md-sidenav-left a {
+    color: var(--bo-color-surface-white);
+}
+
+md-sidenav.md-sidenav-left .md-caption {
+    color: var(--cinza-30);
+}
+
+md-sidenav.md-sidenav-left .md-caption a {
+    color: var(--cinza-30);
+}
+
+md-sidenav.md-sidenav-left md-divider {
+    border-top-color: var(--cinza-30);
+    opacity: 0.45;
+}
+
+md-sidenav.md-sidenav-left md-list-item.active {
+    background: var(--bo-color-sidenav-topic-bg);
+    box-shadow: inset 3px 0 0 var(--bo-color-brand-primary);
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-topic.active {
+    box-shadow: none;
+}
+
+md-sidenav.md-sidenav-left md-list-item.active .md-list-item-inner {
+    background: transparent;
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic.active {
+    background: var(--bo-color-sidenav-subtopic-active);
+    box-shadow: inset 3px 0 0 var(--bo-color-brand-primary);
+}
+
+md-sidenav.md-sidenav-left md-list-item.bo-sidenav-subtopic.active .md-list-item-inner {
+    background: transparent;
+    box-shadow: none;
+}
+
+md-sidenav.md-sidenav-left md-list-item.active p,
+md-sidenav.md-sidenav-left md-list-item.active md-icon {
+    color: var(--bo-color-surface-white);
 }

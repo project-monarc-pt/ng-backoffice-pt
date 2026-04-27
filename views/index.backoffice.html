@@ -5,72 +5,58 @@
         md-is-locked-open="sidenavIsOpen"
         md-disable-backdrop="true"
         md-whiteframe="3">
-    <div layout="row" layout-align="center center" class="md-padding">
-        <img src="img/logo-monarc.png" width="70%"/>
+    <div layout="row" layout-align="center center" class="bo-sidenav-header md-padding">
+        <img src="img/CNCS_negativo.svg" class="bo-sidenav-logo"/>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="closeLeftSidenav();">
+        <md-button class="md-icon-button bo-sidenav-close-btn" ng-click="closeLeftSidenav();">
             <md-icon>menu</md-icon>
         </md-button>
     </div>
     <md-list>
 
-        <md-list-item ui-sref="main.kb_mgmt" ui-sref-active="active" ng-show="isAllowed('dbadmin')">
+        <md-list-item class="bo-sidenav-topic" ui-sref="main.kb_mgmt" ui-sref-active="active" ng-show="isAllowed('dbadmin')">
             <md-icon>local_library</md-icon>
             <p>{{ 'KB management' | translate }}</p>
         </md-list-item>
 
-        <md-list-item ui-sref="main.kb_mgmt.info_risk" ui-sref-active="active" ng-show="isAllowed('dbadmin')">
-            <p class="sidenav-sub-item">
-                <md-icon>find_in_page</md-icon>
-                {{ 'Information risks' | translate }}
-            </p>
+        <md-list-item class="bo-sidenav-subtopic" ui-sref="main.kb_mgmt.info_risk" ui-sref-active="active" ng-show="isAllowed('dbadmin')">
+            <md-icon>find_in_page</md-icon>
+            <p>{{ 'Information risks' | translate }}</p>
         </md-list-item>
 
-        <md-list-item ui-sref="main.kb_mgmt.op_risk" ui-sref-active="active" ng-show="isAllowed('dbadmin')">
-            <p class="sidenav-sub-item">
-                <md-icon>warning</md-icon>
-                {{ 'Operational risks' | translate }}
-            </p>
+        <md-list-item class="bo-sidenav-subtopic" ui-sref="main.kb_mgmt.op_risk" ui-sref-active="active" ng-show="isAllowed('dbadmin')">
+            <md-icon>warning</md-icon>
+            <p>{{ 'Operational risks' | translate }}</p>
         </md-list-item>
 
-        <md-list-item ui-sref="main.kb_mgmt.models" ui-sref-active="active" ng-show="isAllowed('dbadmin')">
-            <p class="sidenav-sub-item">
-                <md-icon>archive</md-icon>
-                {{ 'Models' | translate }}
-            </p>
+        <md-list-item class="bo-sidenav-subtopic" ui-sref="main.kb_mgmt.models" ui-sref-active="active" ng-show="isAllowed('dbadmin')">
+            <md-icon>archive</md-icon>
+            <p>{{ 'Models' | translate }}</p>
         </md-list-item>
 
-        <md-list-item ui-sref="main.kb_mgmt.deliveries_models" ui-sref-active="active" ng-show="isAllowed('dbadmin')">
-            <p class="sidenav-sub-item">
-                <md-icon>insert_drive_file</md-icon>
-                {{ 'Deliverable templates' | translate }}
-            </p>
+        <md-list-item class="bo-sidenav-subtopic" ui-sref="main.kb_mgmt.deliveries_models" ui-sref-active="active" ng-show="isAllowed('dbadmin')">
+            <md-icon>insert_drive_file</md-icon>
+            <p>{{ 'Deliverable templates' | translate }}</p>
         </md-list-item>
 
-        <md-list-item ui-sref="main.kb_mgmt.analysis_guides" ui-sref-active="active" ng-show="isAllowed('dbadmin')">
-            <p class="sidenav-sub-item">
-                <md-icon>dashboard</md-icon>
-                {{ 'Helpful informations' | translate }}
-            </p>
+        <md-list-item class="bo-sidenav-subtopic" ui-sref="main.kb_mgmt.analysis_guides" ui-sref-active="active" ng-show="isAllowed('dbadmin')">
+            <md-icon>dashboard</md-icon>
+            <p>{{ 'Helpful informations' | translate }}</p>
         </md-list-item>
 
-        <md-list-item ui-sref="main.kb_mgmt.questions" ui-sref-active="active" ng-show="isAllowed('dbadmin')">
-            <p class="sidenav-sub-item">
-                <md-icon>question_answer</md-icon>
-                {{ 'Questions of trends assessment' | translate }}
-            </p>
+        <md-list-item class="bo-sidenav-subtopic" ui-sref="main.kb_mgmt.questions" ui-sref-active="active" ng-show="isAllowed('dbadmin')">
+            <md-icon>question_answer</md-icon>
+            <p>{{ 'Questions of trends assessment' | translate }}</p>
         </md-list-item>
-
-        <md-divider></md-divider>
-
-        <p class="md-caption txtcenter">Copyright 2012 - {{ currentYear }} <a href="https://www.nc3.lu" target="_blank" rel="noopener noreferrer">NC3</a></p>
-        <p class="md-caption txtcenter">
-            <a href="https://www.monarc.lu" title="MONARC Website" target="_blank" rel="noopener noreferrer">
-                MONARC
-            </a>
-            v. {{ appVersion }}
-        </p>
     </md-list>
+    <md-divider></md-divider>
+    <p class="md-caption txtcenter">Copyright 2012 - {{ currentYear }} <a href="https://www.nc3.lu" target="_blank" rel="noopener noreferrer">NC3</a></p>
+    <p class="md-caption txtcenter">
+        <a href="https://www.monarc.lu" title="MONARC Website" target="_blank" rel="noopener noreferrer">
+            MONARC
+        </a>
+        v. {{ appVersion }}
+    </p>
 </md-sidenav>
 <md-content layout="column" class="md-main-content" flex ng-controller="BackofficeAccountCtrl">
     <md-toolbar layout="row" layout-align="start center">

@@ -9,14 +9,52 @@ angular
             // Store the state provider to be allow controllers to inject their routes
             window.$stateProvider = $stateProvider;
 
+            $mdThemingProvider.definePalette('monarcfo',{
+                '50':  '#BCBEC0',
+                '100': '#BCBEC0',
+                '200': '#939598',
+                '300': '#78909C',
+                '400': '#627D8C',
+                '500': '#308AA1',
+                '600': '#59717C',
+                '700': '#6D6F71',
+                '800': '#231F20',
+                '900': '#231F20',
+                'A100': '#78909C',
+                'A200': '#627D8C',
+                'A400': '#59717C',
+                'A700': '#231F20',
+                'contrastDefaultColor': 'light',
+                'contrastDarkColors': '50 100 200'
+                });
+
+                $mdThemingProvider.definePalette('monarcfoAccent', {
+                '50':  '#BCBEC0',
+                '100': '#939598',
+                '200': '#78909C',
+                '300': '#627D8C',
+                '400': '#59717C',
+                '500': '#627D8C',
+                '600': '#59717C',
+                '700': '#6D6F71',
+                '800': '#231F20',
+                '900': '#231F20',
+                'A100': '#78909C',
+                'A200': '#308AA1',
+                'A400': '#59717C',
+                'A700': '#231F20',
+                'contrastDefaultColor': 'light',
+                'contrastDarkColors': '50 100'
+                });
+
             $mdThemingProvider.theme('default')
-                .primaryPalette('blue')
-                .accentPalette('amber');
+                .primaryPalette('monarcfo')
+                .accentPalette('monarcfoAccent');
 
             // Keep copied with default - allow commonization of theme declarations with the front in ANR module
             $mdThemingProvider.theme('light')
-                .primaryPalette('blue')
-                .accentPalette('amber');
+                .primaryPalette('monarcfo')
+                .accentPalette('monarcfoAccent');
 
             $urlRouterProvider.otherwise('/');
 

@@ -1,0 +1,27 @@
+:root {
+  /* Primary palette */
+  --azul-cncs: rgb(48, 138, 161);   /* #308AA1 */
+  --cinza-30: rgb(188, 190, 192);   /* #BCBEC0 */
+  --preto-cyber: rgb(35, 31, 32);   /* #231F20 */
+
+  /* Secondary palette */
+  --cor-05: rgb(147, 149, 152);     /* #939598 */
+
+  --bo-color-brand-primary: var(--azul-cncs);
+  --bo-color-brand-black: var(--preto-cyber);
+
+  --bo-color-text-primary: var(--preto-cyber);
+  --bo-color-auth-page-bg: var(--azul-cncs);
+  --bo-color-surface-white: white;
+
+  --bo-color-error: #C0392B;
+
+  --bo-color-sidenav-scrollbar-track-soft: rgba(188, 190, 192, 0.18);
+  --bo-color-sidenav-scrollbar-track: rgba(188, 190, 192, 0.12);
+  --bo-color-sidenav-scrollbar-track-border: rgba(188, 190, 192, 0.2);
+
+  --bo-color-sidenav-topic-bg: rgba(188, 190, 192, 0.1);
+  --bo-color-sidenav-topic-border: rgba(188, 190, 192, 0.35);
+  --bo-color-sidenav-subtopic-hover: rgba(188, 190, 192, 0.09);
+  --bo-color-sidenav-subtopic-active: rgba(188, 190, 192, 0.14);
+}

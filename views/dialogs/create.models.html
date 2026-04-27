@@ -39,13 +39,13 @@
                     <textarea ng-model="model['description' + language]"></textarea>
                 </md-input-container>
 
-                <md-subheader>{{ 'Options' | translate }}</md-subheader>
+                <md-subheader class="kb-dialog-section-subheader">{{ 'Options' | translate }}</md-subheader>
                 <div layout="column">
                     <md-checkbox ng-model="model.isGeneric"  class="md-primary md-align-top-left">{{ 'Specific' | translate }}</md-checkbox>
                     <md-checkbox ng-model="model.areScalesUpdatable" ng-true-value="1" ng-false-value="0" class="md-primary md-align-top-left">{{ 'Editable impact scale' | translate }}</md-checkbox>
                     <md-checkbox ng-model="model.showRolfBrut" ng-true-value="1" ng-false-value="0" class="md-primary md-align-top-left">{{ 'Enable inherent risk' | translate }}</md-checkbox>
                 </div>
-                <md-subheader>{{ 'Asset context fields' | translate }}</md-subheader>
+                <md-subheader class="kb-dialog-section-subheader">{{ 'Asset context fields' | translate }}</md-subheader>
                 <md-chips
                     ng-model="model.metadataFields"
                     placeholder="+ {{ 'Add a context field' | translate }}"

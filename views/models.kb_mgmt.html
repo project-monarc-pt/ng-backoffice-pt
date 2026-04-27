@@ -29,7 +29,7 @@
             </md-button>
         </div>
 
-        <md-toolbar class="md-table-toolbar alternate" ng-show="models.selected.length">
+        <md-toolbar class="md-table-toolbar alternate selected-toolbar" ng-show="models.selected.length">
             <div class="md-toolbar-tools" layout-align="space-between center">
                 <div>{{models.selected.length}} {{models.selected.length > 1 ? 'items' : 'item'}} selected</div>
                 <md-button class="md-icon-button md-warn" ng-click="deleteModelMass($event)">
