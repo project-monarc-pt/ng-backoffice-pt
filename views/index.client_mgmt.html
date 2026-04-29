@@ -1,5 +1,4 @@
-<section layout="row" flex layout-fill ng-controller="BackofficeClientMgmtCtrl">
-    <md-content flex>
+<div flex ng-controller="BackofficeClientMgmtCtrl">
         <div layout="row" layout-align="start center" class="md-padding" ng-if="!clients.selected.length">
             <h2 class="md-title md-padding-right md-padding-left">
                 <span translate>Clients</span>
@@ -65,5 +64,4 @@
 
         <md-table-pagination md-limit="clients.query.limit" md-limit-options="[20, 30, 50, 100]" md-page="clients.query.page"
                              md-total="{{clients.items.count}}" md-on-paginate="updateClients" md-page-select md-label="{{paginationLabels}}"></md-table-pagination>
-    </md-content>
-</section>
+</div>
