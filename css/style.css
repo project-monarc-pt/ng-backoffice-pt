@@ -68,10 +68,20 @@
     margin: 0;
 }
 
+.bo-sidenav-footer-logo-block {
+    margin-top: auto;
+}
+
+.bo-sidenav-footer-logo-wrapper {
+    padding: 15px 8px;
+}
+
 md-sidenav.md-sidenav-left {
     font-size: 1.2em;
     background: var(--bo-color-brand-black);
     color: var(--bo-color-surface-white);
+    display: flex;
+    flex-direction: column;
     scrollbar-width: thin;
     scrollbar-color: var(--cor-05) var(--bo-color-sidenav-scrollbar-track-soft);
 }
@@ -186,9 +196,22 @@ md-sidenav.md-sidenav-left .md-caption a {
     color: var(--cinza-30);
 }
 
+md-sidenav.md-sidenav-left .bo-sidenav-copyright {
+    margin-top: 20px;
+}
+
+md-sidenav.md-sidenav-left .bo-sidenav-version {
+    margin-bottom: 20px;
+}
+
 md-sidenav.md-sidenav-left md-divider {
-    border-top-color: var(--cinza-30);
-    opacity: 0.45;
+    border-color: var(--bo-color-divider-on-dark);
+    opacity: 1;
+}
+
+.bo-sidenav-footer-logo {
+    width: 110px;
+    height: auto;
 }
 
 md-sidenav.md-sidenav-left md-list-item.active {

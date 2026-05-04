@@ -19,6 +19,7 @@
   --bo-color-sidenav-scrollbar-track-soft: rgba(188, 190, 192, 0.18);
   --bo-color-sidenav-scrollbar-track: rgba(188, 190, 192, 0.12);
   --bo-color-sidenav-scrollbar-track-border: rgba(188, 190, 192, 0.2);
+  --bo-color-divider-on-dark: rgba(255, 255, 255, 0.12);
 
   --bo-color-sidenav-topic-bg: rgba(188, 190, 192, 0.1);
   --bo-color-sidenav-topic-border: rgba(188, 190, 192, 0.35);

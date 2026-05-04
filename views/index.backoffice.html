@@ -50,13 +50,20 @@
         </md-list-item>
     </md-list>
     <md-divider></md-divider>
-    <p class="md-caption txtcenter">Copyright 2012 - {{ currentYear }} <a href="https://www.nc3.lu" target="_blank" rel="noopener noreferrer">NC3</a></p>
-    <p class="md-caption txtcenter">
+    <p class="md-caption txtcenter bo-sidenav-copyright">Copyright 2012 - {{ currentYear }} <a href="https://www.nc3.lu" target="_blank" rel="noopener noreferrer">NC3</a></p>
+    <p class="md-caption txtcenter bo-sidenav-version">
         <a href="https://www.monarc.lu" title="MONARC Website" target="_blank" rel="noopener noreferrer">
             MONARC
         </a>
         v. {{ appVersion }}
     </p>
+    <div class="bo-sidenav-footer-logo-block">
+        <md-divider></md-divider>
+        <div class="bo-sidenav-footer-logo-wrapper" layout="row" layout-align="center center">
+            <img src="img/NC3_Logo_MONARC_negativo.svg" alt="MONARC logo" class="bo-sidenav-footer-logo"/>
+        </div>
+        <md-divider></md-divider>
+    </div>
 </md-sidenav>
 <md-content layout="column" class="md-main-content" flex ng-controller="BackofficeAccountCtrl">
     <md-toolbar layout="row" layout-align="start center">
