@@ -1833,7 +1833,7 @@ msgstr "Neerlandês"
 #: views/index.client_mgmt.html:40 views/login.html:11 views/login.html:66
 #: views/users.admin.html:38
 msgid "E-mail"
-msgstr "Correio eletrónico"
+msgstr "E-mail"
 
 #: ../ng_anr/views/anr.soa.html:63
 msgid "EX"
@@ -3478,7 +3478,7 @@ msgid ""
 "Please enter the e-mail address associated to your account. An e-mail will "
 "be sent to you with account recovery instructions."
 msgstr ""
-"Por favor introduza o endereço de correio eletrónico associado à sua conta. "
+"Por favor introduza o endereço de e-mail associado à sua conta. "
 "Ser-lhe-á enviado um e-mail com instruções de recuperação da conta."
 
 #: src/BackofficeLoginCtrl.js:71
@@ -5569,7 +5569,7 @@ msgstr "Só se pode mover uma instância ao nível da raiz"
 
 #: views/dialogs/create.users.admin.html:39
 msgid "You must enter an e-mail address"
-msgstr "Deve introduzir um endereço de correio eletrónico"
+msgstr "Deve introduzir um endereço de e-mail"
 
 #: views/dialogs/create.users.admin.html:21
 msgid "You must enter the user's first name"
@@ -5657,7 +5657,7 @@ msgstr "Não poderá ver isto novamente."
 #: src/BackofficeLoginCtrl.js:80
 msgid "Your e-mail address or password is invalid, please try again."
 msgstr ""
-"O seu endereço de correio eletrónico ou palavra-passe é inválido, por favor "
+"O seu endereço de e-mail ou palavra-passe é inválido, por favor "
 "tente novamente."
 
 #: views/dialogs/display.recoverycodes.html:13
