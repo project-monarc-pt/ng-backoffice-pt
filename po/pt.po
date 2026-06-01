@@ -5918,3 +5918,27 @@ msgstr "{{count}} ameaças foram eliminadas."
 #: ../ng_anr/src/AnrKbMgmtCtrl.js:915 src/kb/info/BackofficeKbInfoCtrl.js:761
 msgid "{{count}} vulnerabilities have been deleted."
 msgstr "{{count}} vulnerabilidades foram eliminadas."
+
+#: ../vendor/monarc/core/src/Service/PasswordService.php
+msgid "Restore password"
+msgstr "Redefinir palavra-passe"
+
+#: ../vendor/monarc/core/src/Service/PasswordService.php
+msgid "Hello,"
+msgstr "Olá,"
+
+#: ../vendor/monarc/core/src/Service/PasswordService.php
+msgid "This is an automatically generated e-mail, please do not reply."
+msgstr "Este é um e-mail gerado automaticamente, por favor não responda."
+
+#: ../vendor/monarc/core/src/Service/PasswordService.php
+msgid "Thank you for requesting a new password, please confirm your request by clicking on the link below :"
+msgstr "Obrigado por solicitar uma nova palavra-passe, confirme o seu pedido clicando no link abaixo:"
+
+#: ../vendor/monarc/core/src/Service/PasswordService.php
+msgid "If you have not asked for a new password, we ask you to ignore this email."
+msgstr "Se não solicitou uma nova palavra-passe, pedimos que ignore este e-mail."
+
+#: ../vendor/monarc/core/src/Service/PasswordService.php
+msgid "Best regards,"
+msgstr "Com os melhores cumprimentos,"

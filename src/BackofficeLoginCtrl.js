@@ -3,14 +3,14 @@
   angular
   .module('BackofficeApp')
   .controller('BackofficeLoginCtrl', [
-    '$scope', '$state', '$http', 'toastr', 'gettextCatalog', 'gettext', 'UserService',
+    '$scope', '$state', '$http', 'toastr', 'gettextCatalog', 'UserService',
     BackofficeLoginCtrl
   ]);
 
   /**
   * Login Controller for the Backoffice module
   */
-  function BackofficeLoginCtrl($scope, $state, $http, toastr, gettextCatalog, gettext, UserService) {
+  function BackofficeLoginCtrl($scope, $state, $http, toastr, gettextCatalog, UserService) {
     $scope.isLoggingIn = false;
     $scope.pwForgotMode = false;
     $scope.twoFASetUpMode = false;
@@ -68,16 +68,16 @@
           $scope.twoFAMode = revoked.includes("2FARequired");
           $scope.twoFASetUpMode = revoked.includes("2FAToBeConfigured:");
           if ($scope.twoFAMode) {
-            toastr.warning(gettext('Please enter your two-factor authentication token.'));
+            toastr.warning(gettextCatalog.getString('Please enter your two-factor authentication token.'));
           }
           else if ($scope.twoFASetUpMode) {
-            toastr.warning(gettext('Please configure two-factor authentication.'));
+            toastr.warning(gettextCatalog.getString('Please configure two-factor authentication.'));
             $scope.user.qrcode = revoked.split(":", 3).slice(1).join(":");
           }
           if (!revoked) {
             $scope.user.otp = "";
             $scope.user.recoveryCode = "";
-            toastr.warning(gettext('Your e-mail address or password is invalid, please try again.'));
+            toastr.warning(gettextCatalog.getString('Your e-mail address or password is invalid, please try again.'));
           }
         }
       );
