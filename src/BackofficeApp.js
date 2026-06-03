@@ -332,13 +332,11 @@ angular
                 $rootScope.appVersion = ConfigService.getVersion();
                 $rootScope.currentYear = new Date().getFullYear();
 
-                if (uiLang === undefined || uiLang === null) {
-                    gettextCatalog.setCurrentLanguage('en');
-                    $rootScope.uiLanguage = 'gb';
-                } else {
-                    gettextCatalog.setCurrentLanguage($rootScope.languages[uiLang].code);
-                    $rootScope.uiLanguage = $rootScope.languages[uiLang].flag;
+                if (uiLang === undefined || uiLang === null || !$rootScope.languages[uiLang]) {
+                    uiLang = ConfigService.getDefaultLanguageIndex();
                 }
+                gettextCatalog.setCurrentLanguage($rootScope.languages[uiLang].code);
+                $rootScope.uiLanguage = $rootScope.languages[uiLang].flag;
 
                 $rootScope.updatePaginationLabels();
             });
