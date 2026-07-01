@@ -3,14 +3,14 @@
   angular
   .module('BackofficeApp')
   .controller('BackofficeLoginCtrl', [
-    '$scope', '$state', '$http', 'toastr', 'gettextCatalog', 'ConfigService', 'UserService',
+    '$scope', '$state', '$http', 'toastr', 'gettextCatalog', 'UserService',
     BackofficeLoginCtrl
   ]);
 
   /**
   * Login Controller for the Backoffice module
   */
-  function BackofficeLoginCtrl($scope, $state, $http, toastr, gettextCatalog, ConfigService, UserService) {
+  function BackofficeLoginCtrl($scope, $state, $http, toastr, gettextCatalog, UserService) {
     $scope.isLoggingIn = false;
     $scope.pwForgotMode = false;
     $scope.twoFASetUpMode = false;
@@ -22,31 +22,13 @@
       'verificationCode': null,
     };
 
-    var getActiveUiLanguage = function () {
-      var uiLanguage = UserService.getUiLanguage();
-      if (uiLanguage !== undefined && uiLanguage !== null) {
-        return uiLanguage;
-      }
-
-      var currentLanguage = gettextCatalog.getCurrentLanguage();
-      var languages = ConfigService.getLanguages();
-      for (var index in languages) {
-        if (Object.prototype.hasOwnProperty.call(languages, index) && languages[index].code === currentLanguage) {
-          return index;
-        }
-      }
-
-      return ConfigService.getDefaultLanguageIndex();
-    };
-
     $scope.passwordForgotten = function () {
       $scope.pwForgotMode = true;
     };
 
     $scope.passwordForgottenImpl = function () {
       $http.post('api/admin/passwords', {
-        email: $scope.user.email,
-        language: getActiveUiLanguage()
+        email: $scope.user.email
       }).then(function (data) {
         toastr.success(gettextCatalog.getString("The password reset request has been sent successfully. You will receive a mail shortly with information on how to reset your account password."));
         $scope.returnToLogin();
