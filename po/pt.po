@@ -395,6 +395,21 @@ msgstr "Todas as etiquetas"
 msgid "An error occurred while fetching {{ thing }}: {{status}}"
 msgstr "Ocorreu um erro na obtenção de {{ thing }}: {{status}}"
 
+msgid "Input data validation errors:"
+msgstr "Erros de validação dos dados introduzidos:"
+
+msgid "Validation errors in row"
+msgstr "Erros de validação na linha"
+
+msgid "This resource is forbidden: {{resourceUrl}}"
+msgstr "Não tem permissão para aceder a este recurso: {{resourceUrl}}"
+
+msgid "Unauthorized operation occurred."
+msgstr "Ocorreu uma operação não autorizada."
+
+msgid "proxyAlias"
+msgstr "Proxy alias"
+
 #: views/analysis_guides.kb_mgmt.html:5
 msgid "Analysis guides"
 msgstr "Guias de análise"
@@ -5942,3 +5957,432 @@ msgstr "Se não solicitou uma nova palavra-passe, pedimos que ignore este e-mail
 #: ../vendor/monarc/core/src/Service/PasswordService.php
 msgid "Best regards,"
 msgstr "Com os melhores cumprimentos,"
+
+
+msgid "Activate background import"
+msgstr "Ativar importação em segundo plano"
+
+msgid "All models must be common to asset, threat and vulnerability"
+msgstr "Todos os modelos devem ser comuns ao ativo, à ameaça e à vulnerabilidade"
+
+msgid "Anr id missing"
+msgstr "ID da análise de risco em falta"
+
+msgid "Anr ids diffence"
+msgstr "IDs da análise de risco diferentes"
+
+msgid "Anr import error:"
+msgstr "Erro de importação da análise de risco:"
+
+msgid "Anr parameter has to be passed missing for the mode \"anr\"."
+msgstr "O parâmetro da análise de risco tem de ser passado para o modo \"anr\"."
+
+msgid "Are you sure you want delete the import process?"
+msgstr "Tem a certeza de que pretende eliminar o processo de importação?"
+
+msgid "Asset can't be primary"
+msgstr "O ativo não pode ser primário"
+
+msgid "Asset type of an existing object can not be changed."
+msgstr "O tipo de ativo de um objeto existente não pode ser alterado."
+
+msgid "Asset was not found."
+msgstr "O ativo não foi encontrado."
+
+msgid "Assets Integrity"
+msgstr "Integridade dos ativos"
+
+msgid "Awaiting the import process ..."
+msgstr "A aguardar o processo de importação..."
+
+msgid "Background import active"
+msgstr "Importação em segundo plano ativa"
+
+msgid "Before calling \"getFormattedInputParams\", the \"format\" method should be called."
+msgstr "Antes de chamar \"getFormattedInputParams\", o método \"format\" deve ser chamado."
+
+msgid "Cancel import process"
+msgstr "Cancelar processo de importação"
+
+msgid "Cannot use \"t\" as a table alias"
+msgstr "Não é possível usar \"t\" como alias da tabela"
+
+msgid "Create a snapshot before importing"
+msgstr "Criar um instantâneo antes de importar"
+
+msgid "Default Scale Impact Types can't be removed."
+msgstr "Os tipos de impacto de escala predefinidos não podem ser removidos."
+
+msgid "Delete question is not possible"
+msgstr "Não é possível eliminar a questão"
+
+msgid "Document template not found"
+msgstr "Modelo de documento não encontrado"
+
+msgid "Document type missing"
+msgstr "Tipo de documento em falta"
+
+msgid "Entity `id` not found."
+msgstr "ID da entidade não encontrado."
+
+msgid "Error loading CAPTCHA."
+msgstr "Erro ao carregar o CAPTCHA."
+
+msgid "Error of the CAPTCHA validation."
+msgstr "Erro na validação do CAPTCHA."
+
+msgid "File is missing."
+msgstr "Ficheiro em falta."
+
+msgid "Filter parameter 'type' is mandatory to get the stats."
+msgstr "O parâmetro de filtro 'type' é obrigatório para obter as estatísticas."
+
+msgid "Filter parameters 'processor' and 'type' are mandatory to get the stats."
+msgstr "Os parâmetros de filtro 'processor' e 'type' são obrigatórios para obter as estatísticas."
+
+msgid "Foreign key violation"
+msgstr "Violação de chave estrangeira"
+
+msgid "Get import error"
+msgstr "Obter erro de importação"
+
+msgid "Import Error"
+msgstr "Erro de importação"
+
+msgid "Import log messages"
+msgstr "Mensagens de log de importação"
+
+msgid "Instance ID is required for the export operation."
+msgstr "O ID da instância é obrigatório para a operação de exportação."
+
+msgid "Instance can not be a parent of itself."
+msgstr "A instância não pode ser ascendente de si própria."
+
+msgid "Instance can not be a root of itself."
+msgstr "A instância não pode ser raiz de si própria."
+
+msgid "Instance risk can't be created without threat and vulnerability."
+msgstr "O risco da instância não pode ser criado sem ameaça e vulnerabilidade."
+
+msgid "Integrity AMV links violation"
+msgstr "Violação da integridade das ligações AMV"
+
+msgid "Invalid CAPTCHA. Please try again."
+msgstr "CAPTCHA inválido. Tente novamente."
+
+msgid "It is forbidden to create a global object linked to a primary asset"
+msgstr "É proibido criar um objeto global ligado a um ativo primário"
+
+msgid "It is forbidden to have a generic object linked to a specific asset"
+msgstr "É proibido ter um objeto genérico ligado a um ativo específico"
+
+msgid "It is not possible to link a control to itself"
+msgstr "Não é possível ligar um controlo a si próprio"
+
+msgid "It's not allowed to add a specific object to a generic parent"
+msgstr "Não é permitido adicionar um objeto específico a um ascendente genérico"
+
+msgid "It's not allowed to compose the same child object as parent."
+msgstr "Não é permitido compor o mesmo objeto filho como ascendente."
+
+msgid "It's not allowed to make a composition with circular dependency."
+msgstr "Não é permitido criar uma composição com dependência circular."
+
+msgid "Measures have to be processed before the Statement of Applicability data."
+msgstr "As medidas têm de ser processadas antes dos dados da Declaração de Aplicabilidade."
+
+msgid "Method Not Allowed"
+msgstr "Método não permitido"
+
+msgid "Minimum cannot be greater than Maximum"
+msgstr "O mínimo não pode ser superior ao máximo"
+
+msgid "Missing data"
+msgstr "Dados em falta"
+
+msgid "Object ID is required for the export operation."
+msgstr "O ID do objeto é obrigatório para a operação de exportação."
+
+msgid "Object ID parameter is required."
+msgstr "O parâmetro ID do objeto é obrigatório."
+
+msgid "One of \"objectId\" or \"categoryId\" parameter is mandatory."
+msgstr "Um dos parâmetros \"objectId\" ou \"categoryId\" é obrigatório."
+
+msgid "Only composition root instances can be deleted."
+msgstr "Só é possível eliminar instâncias raiz da composição."
+
+msgid "Only specific risks can be deleted."
+msgstr "Só é possível eliminar riscos específicos."
+
+msgid "Parent instance should be in the node tree and the analysis IDs are matched"
+msgstr "A instância ascendente deve estar na árvore de nós e os IDs da análise devem corresponder"
+
+msgid "Password and its confirmation have to be equal."
+msgstr "A palavra-passe e a respetiva confirmação têm de ser iguais."
+
+msgid "Password is not correct."
+msgstr "A palavra-passe não está correta."
+
+msgid "Password must be the same"
+msgstr "A palavra-passe tem de ser igual"
+
+msgid "Password reset error occurred. Please try again later."
+msgstr "Ocorreu um erro ao redefinir a palavra-passe. Tente novamente mais tarde."
+
+msgid "Passwords must be the same"
+msgstr "As palavras-passe têm de ser iguais"
+
+msgid "Please enter CAPTCHA:"
+msgstr "Introduza o CAPTCHA:"
+
+msgid "Predefined instance metadata fields can't be deleted."
+msgstr "Os campos de metadados predefinidos da instância não podem ser eliminados."
+
+msgid "Predefined instance metadata fields can't be modified."
+msgstr "Os campos de metadados predefinidos da instância não podem ser modificados."
+
+msgid "Record missing"
+msgstr "Registo em falta"
+
+msgid "Record to export is required"
+msgstr "O registo a exportar é obrigatório"
+
+msgid "Scale impact types have to be created before the instance consequences."
+msgstr "Os tipos de impacto da escala têm de ser criados antes das consequências da instância."
+
+msgid "Scale type \"%d\" is not supported. The scale cant be created."
+msgstr "O tipo de escala \"%d\" não é suportado. A escala não pode ser criada."
+
+msgid "Scales are not editable when the risks evaluation is started."
+msgstr "As escalas não são editáveis depois de iniciada a avaliação dos riscos."
+
+msgid "Scales level must remain below 20"
+msgstr "O nível das escalas deve permanecer abaixo de 20"
+
+msgid "Search criteria should be applied to field(s)."
+msgstr "Os critérios de pesquisa devem ser aplicados a campo(s)."
+
+msgid "Search string should be provided to execute the query."
+msgstr "Deve ser indicada uma expressão de pesquisa para executar a consulta."
+
+msgid "Selected model's language is not supported"
+msgstr "O idioma do modelo selecionado não é suportado"
+
+msgid "The \"monarc_version\" parameter has to be defined in the file data structure."
+msgstr "O parâmetro \"monarc_version\" tem de estar definido na estrutura de dados do ficheiro."
+
+msgid "The \"object\" and \"type\" parameters have to be passed in the import data."
+msgstr "Os parâmetros \"object\" e \"type\" têm de ser passados nos dados de importação."
+
+msgid "The ANR has no model linked to validate the object."
+msgstr "A análise de risco não tem nenhum modelo associado para validar o objeto."
+
+msgid "The analysis associated with the snapshot matches the requested one."
+msgstr "A análise associada ao instantâneo corresponde à análise solicitada."
+
+msgid "The analysis can not be created due to the logic error."
+msgstr "A análise não pode ser criada devido a um erro lógico."
+
+msgid "The config option \"spool_path_create\" is required to generate clients creation."
+msgstr "A opção de configuração \"spool_path_create\" é obrigatória para gerar a criação de clientes."
+
+msgid "The config option \"spool_path_delete\" is required to generate clients deletion."
+msgstr "A opção de configuração \"spool_path_delete\" é obrigatória para gerar a eliminação de clientes."
+
+msgid "The import process analysis has been deleted."
+msgstr "O processo de importação da análise foi eliminado."
+
+msgid "The import process is added to the queue and will be executed soon."
+msgstr "O processo de importação foi adicionado à fila e será executado em breve."
+
+msgid "The importing file should include evaluation scales."
+msgstr "O ficheiro de importação deve incluir escalas de avaliação."
+
+msgid "The informational risk already exists."
+msgstr "O risco de informação já existe."
+
+msgid "The object is already presented in the composition."
+msgstr "O objeto já está presente na composição."
+
+msgid "The object is not linked to the anr"
+msgstr "O objeto não está ligado à análise de risco"
+
+msgid "The option `is_sharing_enabled` is mandatory."
+msgstr "A opção `is_sharing_enabled` é obrigatória."
+
+msgid "The parent instance or one of its parents is a child of the instance."
+msgstr "A instância ascendente ou um dos seus ascendentes é descendente da instância."
+
+msgid "The passed scale impact type does not exist."
+msgstr "O tipo de impacto de escala indicado não existe."
+
+msgid "The passed scale type does not exist."
+msgstr "O tipo de escala indicado não existe."
+
+msgid "The password reset request has been sent successfully. You will receive a mail shortly with information on"
+msgstr "O pedido de redefinição da palavra-passe foi enviado com sucesso. Irá receber em breve um e-mail com informação sobre"
+
+msgid "The risk is already linked to this recommendation"
+msgstr "O risco já está ligado a esta recomendação"
+
+msgid "The scale validation has to be done towards scale of type \"impact\"."
+msgstr "A validação da escala tem de ser feita relativamente à escala do tipo \"impacto\"."
+
+msgid "The scales have to be prepared before the process of the operational risks."
+msgstr "As escalas têm de ser preparadas antes do processamento dos riscos operacionais."
+
+msgid "The scope of an existing object can not be changed."
+msgstr "O âmbito de um objeto existente não pode ser alterado."
+
+msgid "The token is not valid or there is a Browser cache issue."
+msgstr "O token não é válido ou existe um problema de cache do navegador."
+
+msgid "The user token is not defined. Please login"
+msgstr "O token do utilizador não está definido. Inicie sessão."
+
+msgid "There are no clients exist."
+msgstr "Não existem clientes."
+
+msgid "There is an import error (Restore a snapshot or remove analysis)"
+msgstr "Existe um erro de importação (restaure um instantâneo ou remova a análise)"
+
+msgid "This risk already exists in this instance"
+msgstr "Este risco já existe nesta instância"
+
+msgid "Trying to call setDbAdapter with a null adapter"
+msgstr "Tentativa de chamar setDbAdapter com um adaptador nulo"
+
+msgid "Two factor authentication is not enabled"
+msgstr "A autenticação de dois fatores não está ativa"
+
+msgid "Under import process ..."
+msgstr "Em processo de importação..."
+
+msgid "You are not authorized to do this action"
+msgstr "Não tem autorização para executar esta ação"
+
+msgid "You are not authorized to use this dependency"
+msgstr "Não tem autorização para utilizar esta dependência"
+
+msgid "You can not deactivate the \"System\" user"
+msgstr "Não pode desativar o utilizador \"System\""
+
+msgid "You can not delete a not specific risk"
+msgstr "Não pode eliminar um risco que não seja específico"
+
+msgid "You can not remove admin role from the \"System\" user"
+msgstr "Não pode remover o perfil de administrador do utilizador \"System\""
+
+msgid "You can not remove the \"System\" user"
+msgstr "Não pode remover o utilizador \"System\""
+
+msgid "You cannot add a specific object to a generic model"
+msgstr "Não pode adicionar um objeto específico a um modelo genérico"
+
+msgid "You cannot add an object with specific asset unrelated to a specific model"
+msgstr "Não pode adicionar um objeto com ativo específico não relacionado com um modelo específico"
+
+msgid "\"model\" param is missing"
+msgstr "O parâmetro \"model\" está em falta"
+
+
+msgid "ipAddress"
+msgstr "Endereço IP"
+
+msgid "The value {{value}} should be between one of [{{allowedValues}}]"
+msgstr "O valor {{value}} deve estar entre um dos seguintes valores: [{{allowedValues}}]"
+
+msgid "The value {{value}} should be between {{min}} and {{max}}."
+msgstr "O valor {{value}} deve estar entre {{min}} e {{max}}."
+
+msgid "The value {{value}} of \"{{scaleType}}\" is out of bounds. min: {{min}} max: {{max}}."
+msgstr "O valor {{value}} de \"{{scaleType}}\" está fora dos limites. mínimo: {{min}} máximo: {{max}}."
+
+msgid "The value for reduction amount ({{value}}) is not valid (min {{min}})."
+msgstr "O valor da redução de vulnerabilidades ({{value}}) não é válido (mínimo {{min}})."
+
+msgid "The scale index \"{{index}}\" is out of bounds."
+msgstr "O índice da escala \"{{index}}\" está fora dos limites."
+
+msgid "confidentiality"
+msgstr "confidencialidade"
+
+msgid "integrity"
+msgstr "integridade"
+
+msgid "availability"
+msgstr "disponibilidade"
+
+msgid "threat probability"
+msgstr "probabilidade da ameaça"
+
+msgid "vulnerability qualification"
+msgstr "qualificação da vulnerabilidade"
+
+msgid "The tuple asset / threat / vulnerability is invalid. Specific and generic objects can't consist a link together"
+msgstr "A combinação ativo / ameaça / vulnerabilidade é inválida. Objetos específicos e genéricos não podem compor uma ligação em conjunto"
+
+msgid "Specific models relations must be common to asset and vulnerability"
+msgstr "As relações de modelos específicos devem ser comuns ao ativo e à vulnerabilidade"
+
+msgid "Specific models relations must be common to asset and threat"
+msgstr "As relações de modelos específicos devem ser comuns ao ativo e à ameaça"
+
+msgid "The modification is forbidden. The level of integrity between the model and its objects will be corrupted."
+msgstr "A alteração é proibida. O nível de integridade entre o modelo e os seus objetos ficará corrompido."
+
+msgid "The modification is forbidden. The level of integrity between the model and assets will be corrupted."
+msgstr "A alteração é proibida. O nível de integridade entre o modelo e os ativos ficará corrompido."
+
+msgid "The modification is forbidden. The level of integrity between the model and threats will be corrupted."
+msgstr "A alteração é proibida. O nível de integridade entre o modelo e as ameaças ficará corrompido."
+
+msgid "The modification is forbidden. The level of integrity between the model and vulnerabilities will be corrupted."
+msgstr "A alteração é proibida. O nível de integridade entre o modelo e as vulnerabilidades ficará corrompido."
+
+msgid "The file cant be saved, please check if the destination directory exists and has write permissions."
+msgstr "Não foi possível guardar o ficheiro. Verifique se a pasta de destino existe e tem permissões de escrita."
+
+
+msgid "To set the implicit position after another element, the \"previous\" param is mandatory."
+msgstr "Para definir a posição implícita após outro elemento, o parâmetro \"previous\" é obrigatório."
+
+msgid "An error occurred during the file upload. Error code: {{code}}"
+msgstr "Ocorreu um erro durante o carregamento do ficheiro. Código do erro: {{code}}"
+
+msgid "The files upload directory \"{{directory}}\" is doesn't exist or or not writable"
+msgstr "A pasta de carregamento de ficheiros \"{{directory}}\" não existe ou não tem permissões de escrita"
+
+msgid "Param \"{{field}}\" is not allowed to have value \"{{value}}\"."
+msgstr "O parâmetro \"{{field}}\" não pode ter o valor \"{{value}}\"."
+
+msgid "The object is not linked to the anr ID \"{{anrId}}\""
+msgstr "O objeto não está ligado à análise de risco com ID \"{{anrId}}\""
+
+msgid "The current analysis language \"{{currentLanguage}}\" should be the same as importing one \"{{importingLanguage}}\""
+msgstr "O idioma da análise atual \"{{currentLanguage}}\" deve ser igual ao idioma importado \"{{importingLanguage}}\""
+
+msgid "Password validation errors: [ {{errors}} ]."
+msgstr "Erros de validação da palavra-passe: [ {{errors}} ]."
+
+msgid "Scale of type \"{{type}}\" does not exist with anr ID: \"{{anrId}}\""
+msgstr "A escala do tipo \"{{type}}\" não existe na análise de risco com ID \"{{anrId}}\""
+
+msgid "User with email \"{{email}}\" does not exist"
+msgstr "O utilizador com o e-mail \"{{email}}\" não existe"
+
+msgid "Entity of type \"{{entityType}}\", with ID {{id}} was not found in analysis ID {{anrId}}"
+msgstr "A entidade do tipo \"{{entityType}}\", com ID {{id}}, não foi encontrada na análise de risco com ID {{anrId}}"
+
+msgid "Directory \"{{directory}}\" was not created"
+msgstr "A pasta \"{{directory}}\" não foi criada"
+
+msgid "The declared class \"{{className}}\" can't be created"
+msgstr "Não foi possível criar a classe declarada \"{{className}}\""
+
+msgid "The declared service class \"{{className}}\" can't be created"
+msgstr "Não foi possível criar a classe de serviço declarada \"{{className}}\""
+
+msgid "Table's entity class name \"{{tableClassName}}\" and entity class name \"{{entityClassName}}\" should be equal."
+msgstr "O nome da classe de entidade da tabela \"{{tableClassName}}\" e o nome da classe de entidade \"{{entityClassName}}\" devem ser iguais."

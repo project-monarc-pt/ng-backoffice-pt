@@ -256,24 +256,225 @@ angular
                     'responseError': function (response) {
                         let i;
                         var ErrorService = $injector.get('ErrorService');
+                        var gettextCatalog = $injector.get('gettextCatalog');
+
+                        function translateKnownErrorMessage(message) {
+                            if (!message || typeof message !== 'string') {
+                                return message;
+                            }
+
+                            function translateScaleType(scaleType) {
+                                const scaleTypes = {
+                                    'confidentiality': gettext('confidentiality'),
+                                    'integrity': gettext('integrity'),
+                                    'availability': gettext('availability'),
+                                    'threat probability': gettext('threat probability'),
+                                    'vulnerability qualification': gettext('vulnerability qualification')
+                                };
+
+                                return scaleTypes[scaleType]
+                                    ? gettextCatalog.getString(scaleTypes[scaleType])
+                                    : scaleType;
+                            }
+
+                            message = message.replace(
+                                /The value (-?\d+) should be between one of \[([^\]]+)\]/g,
+                                function (match, value, allowedValues) {
+                                    return gettextCatalog.getString(
+                                        gettext('The value {{value}} should be between one of [{{allowedValues}}]'),
+                                        { value: value, allowedValues: allowedValues }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /The value (-?\d+) should be between (-?\d+) and (-?\d+)\./g,
+                                function (match, value, min, max) {
+                                    return gettextCatalog.getString(
+                                        gettext('The value {{value}} should be between {{min}} and {{max}}.'),
+                                        { value: value, min: min, max: max }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /The value (-?\d+) of "([^"]+)" is out of bounds\. min: (-?\d+) max: (-?\d+)\./g,
+                                function (match, value, scaleType, min, max) {
+                                    return gettextCatalog.getString(
+                                        gettext('The value {{value}} of "{{scaleType}}" is out of bounds. min: {{min}} max: {{max}}.'),
+                                        { value: value, scaleType: translateScaleType(scaleType), min: min, max: max }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /The value for reduction amount \((-?\d+)\) is not valid \(min (-?\d+)\)\./g,
+                                function (match, value, min) {
+                                    return gettextCatalog.getString(
+                                        gettext('The value for reduction amount ({{value}}) is not valid (min {{min}}).'),
+                                        { value: value, min: min }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /The scale index "(-?\d+)" is out of bounds\./g,
+                                function (match, index) {
+                                    return gettextCatalog.getString(
+                                        gettext('The scale index "{{index}}" is out of bounds.'),
+                                        { index: index }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /An error occurred during the file upload\. Error code: (\d+)/g,
+                                function (match, code) {
+                                    return gettextCatalog.getString(
+                                        gettext('An error occurred during the file upload. Error code: {{code}}'),
+                                        { code: code }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /The files upload directory "([^"]+)" is doesn't exist or or not writable/g,
+                                function (match, directory) {
+                                    return gettextCatalog.getString(
+                                        gettext('The files upload directory "{{directory}}" is doesn\'t exist or or not writable'),
+                                        { directory: directory }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /Param "([^"]+)" is not allowed to have value "([^"]+)"\./g,
+                                function (match, field, value) {
+                                    return gettextCatalog.getString(
+                                        gettext('Param "{{field}}" is not allowed to have value "{{value}}".'),
+                                        { field: field, value: value }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /The object is not linked to the anr ID "(\d+)"/g,
+                                function (match, anrId) {
+                                    return gettextCatalog.getString(
+                                        gettext('The object is not linked to the anr ID "{{anrId}}"'),
+                                        { anrId: anrId }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /The current analysis language "([^"]+)" should be the same as importing one "([^"]+)"/g,
+                                function (match, currentLanguage, importingLanguage) {
+                                    return gettextCatalog.getString(
+                                        gettext('The current analysis language "{{currentLanguage}}" should be the same as importing one "{{importingLanguage}}"'),
+                                        { currentLanguage: currentLanguage, importingLanguage: importingLanguage }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /Password validation errors: \[ (.+) \]\./g,
+                                function (match, errors) {
+                                    return gettextCatalog.getString(
+                                        gettext('Password validation errors: [ {{errors}} ].'),
+                                        { errors: errors }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /Scale of type "([^"]+)" does not exist with anr ID: "([^"]+)"/g,
+                                function (match, type, anrId) {
+                                    return gettextCatalog.getString(
+                                        gettext('Scale of type "{{type}}" does not exist with anr ID: "{{anrId}}"'),
+                                        { type: type, anrId: anrId }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /User with email "([^"]+)" does not exist/g,
+                                function (match, email) {
+                                    return gettextCatalog.getString(
+                                        gettext('User with email "{{email}}" does not exist'),
+                                        { email: email }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /Entity of type "([^"]+)", with ID ([^ ]+) was not found in analysis ID (\d+)/g,
+                                function (match, entityType, id, anrId) {
+                                    return gettextCatalog.getString(
+                                        gettext('Entity of type "{{entityType}}", with ID {{id}} was not found in analysis ID {{anrId}}'),
+                                        { entityType: entityType, id: id, anrId: anrId }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /Directory "([^"]+)" was not created/g,
+                                function (match, directory) {
+                                    return gettextCatalog.getString(
+                                        gettext('Directory "{{directory}}" was not created'),
+                                        { directory: directory }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /The declared class "([^"]+)" can't be created/g,
+                                function (match, className) {
+                                    return gettextCatalog.getString(
+                                        gettext("The declared class \"{{className}}\" can't be created"),
+                                        { className: className }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /The declared service class "([^"]+)" can't be created/g,
+                                function (match, className) {
+                                    return gettextCatalog.getString(
+                                        gettext("The declared service class \"{{className}}\" can't be created"),
+                                        { className: className }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /Table's entity class name "([^"]+)" and entity class name "([^"]+)" should be equal\./g,
+                                function (match, tableClassName, entityClassName) {
+                                    return gettextCatalog.getString(
+                                        gettext("Table's entity class name \"{{tableClassName}}\" and entity class name \"{{entityClassName}}\" should be equal."),
+                                        { tableClassName: tableClassName, entityClassName: entityClassName }
+                                    );
+                                }
+                            );
+
+                            return gettextCatalog.getString(message);
+                        }
 
                         if (response.status === 400) {
                             for (i = 0; i < response.data.errors.length; ++i) {
                                 const messages = response.data.errors[i];
                                 let validationErrors = '';
                                 if (messages.hasOwnProperty('row')) {
-                                    // TODO: 1. Translation, 2. New lines after the messages or use a file template.
-                                    // gettextCatalog.getString('Validation errors in row')
-                                    validationErrors += 'Validation errors in row' + ' #'
+                                    validationErrors += gettextCatalog.getString(gettext('Validation errors in row')) + ' #'
                                       + messages.row + "\r\n";
                                 } else {
-                                    validationErrors += 'Input data validation errors: \r\n';
+                                    validationErrors += gettextCatalog.getString(gettext('Input data validation errors:')) + "\r\n";
                                 }
                                 if (messages.hasOwnProperty('validationErrors')) {
                                     for (const [field, fieldMessage] of Object.entries(messages.validationErrors)) {
-                                        validationErrors += '[' + field + "] :\r\n";
+                                        validationErrors += '[' + gettextCatalog.getString(field) + "] :\r\n";
                                         for (const message of fieldMessage) {
-                                            validationErrors += '- ' + message + "\r\n";
+                                            validationErrors += '- ' + translateKnownErrorMessage(message) + "\r\n";
                                         }
                                     }
                                 }
@@ -287,14 +488,17 @@ angular
                         } else if (response.status === 403) {
                             const resourceUrl = response.config.url;
                             if (resourceUrl) {
-                                ErrorService.notifyError('This resource is forbidden: ' + resourceUrl);
+                                ErrorService.notifyError(gettextCatalog.getString(
+                                    gettext('This resource is forbidden: {{resourceUrl}}'),
+                                    { resourceUrl: resourceUrl }
+                                ));
                             } else {
-                                ErrorService.notifyError('Unauthorized operation occurred.');
+                                ErrorService.notifyError(gettextCatalog.getString(gettext('Unauthorized operation occurred.')));
                             }
                         } else if (response.status === 412) {
                             // Human-readable error, with translation support
                             for (i = 0; i < response.data.errors.length; ++i) {
-                                ErrorService.notifyError(response.data.errors[i].message);
+                                ErrorService.notifyError(translateKnownErrorMessage(response.data.errors[i].message));
                             }
                         } else if (response.status >= 400 && response.config.url.indexOf('auth') < 0) {
                             var message = response.status;
@@ -311,7 +515,7 @@ angular
                                 url = url.substring(0, url.indexOf('?'));
                             }
 
-                            ErrorService.notifyFetchError(url, message + " (" + response.status + ")");
+                            ErrorService.notifyFetchError(url, translateKnownErrorMessage(message) + " (" + response.status + ")");
                         }
 
                         var $q = $injector.get('$q');
