@@ -408,11 +408,21 @@ angular
                             );
 
                             message = message.replace(
-                                /Entity of type "([^"]+)", with ID ([^ ]+) was not found in analysis ID (\d+)/g,
+                                /Entity of type ["']([^"']+)["'], with ID ([^ ]+) was not found in analysis ID (\d+)/g,
                                 function (match, entityType, id, anrId) {
                                     return gettextCatalog.getString(
                                         gettext('Entity of type "{{entityType}}", with ID {{id}} was not found in analysis ID {{anrId}}'),
                                         { entityType: entityType, id: id, anrId: anrId }
+                                    );
+                                }
+                            );
+
+                            message = message.replace(
+                                /Entity of type ["']([^"']+)["'] for IDs (.+) was not found/g,
+                                function (match, entityType, ids) {
+                                    return gettextCatalog.getString(
+                                        gettext("Entity of type '{{entityType}}' for IDs {{ids}} was not found"),
+                                        { entityType: entityType, ids: ids }
                                     );
                                 }
                             );
