@@ -2231,7 +2231,7 @@ msgstr "FQDN"
 #: ../ng_anr/src/AnrObjectInstanceCtrl.js:490
 #: ../ng_anr/src/AnrObjectInstanceCtrl.js:492
 msgid "Field label"
-msgstr "Etiqueta de campo"
+msgstr "Rótulo de campo"
 
 #: ../ng_anr/views/_gettext_caveats.html:48
 msgid "Field previous missing"
@@ -2817,13 +2817,13 @@ msgstr "LR"
 #: views/op_risk.kb_mgmt.html:39 views/questions.kb_mgmt.html:18
 #: views/servers.admin.html:24
 msgid "Label"
-msgstr "Etiqueta"
+msgstr "Rótulo"
 
 #: ../ng_anr/views/create.assets.html:34
 #: ../ng_anr/views/create.objlibs.html:31
 #: ../ng_anr/views/create.threats.html:34 ../ng_anr/views/create.vulns.html:34
 msgid "Labels and descriptions"
-msgstr "Etiquetas e descrições"
+msgstr "Rótulos e descrições"
 
 #: ../ng_anr/views/create.assets.html:37
 #: ../ng_anr/views/create.categories.html:16
