@@ -3622,11 +3622,11 @@ msgstr "Finalidade(s)"
 #: ../ng_anr/views/anr.dashboard.risks.html:33
 #: ../ng_anr/views/anr.soa.sheet.html:36
 msgid "Qualif."
-msgstr "Qualif."
+msgstr "Classif."
 
 #: ../ng_anr/views/anr.dashboard.html:344
 msgid "Qualification"
-msgstr "Qualificação"
+msgstr "Classificação"
 
 #: ../ng_anr/views/trends.evalcontext.html:20
 msgid "Question"
@@ -5368,7 +5368,7 @@ msgstr ""
 
 #: ../ng_anr/views/_gettext_caveats.html:43
 msgid "Value for qualification is not valid"
-msgstr "O valor da qualificação não é válido"
+msgstr "O valor da classificação não é válido"
 
 #: ../ng_anr/views/_gettext_caveats.html:79
 msgid ""
@@ -5418,7 +5418,7 @@ msgstr "Vulnerabilidade"
 
 #: ../ng_anr/views/_risk_sheet.html:63 ../ng_anr/views/_table_risks.html:60
 msgid "Vulnerability qualification"
-msgstr "Qualificação de vulnerabilidades"
+msgstr "Classificação de vulnerabilidades"
 
 #: ../ng_anr/views/_risk_sheet.html:162
 msgid "Vulnerability reduction"
@@ -6318,7 +6318,7 @@ msgid "threat probability"
 msgstr "probabilidade da ameaça"
 
 msgid "vulnerability qualification"
-msgstr "qualificação da vulnerabilidade"
+msgstr "classificação da vulnerabilidade"
 
 msgid "The tuple asset / threat / vulnerability is invalid. Specific and generic objects can't consist a link together"
 msgstr "A combinação ativo / ameaça / vulnerabilidade é inválida. Objetos específicos e genéricos não podem compor uma ligação em conjunto"
