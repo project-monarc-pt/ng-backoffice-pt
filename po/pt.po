@@ -488,6 +488,12 @@ msgstr "Tem a certeza de que pretende eliminar o destinatário?"
 msgid "Are you sure you want to delete recommendation set?"
 msgstr "Tem a certeza de que pretende eliminar o conjunto de recomendações?"
 
+#: src/kb/info/BackofficeKbInfoCtrl.js
+msgid "All its recommendations will be deleted too. This operation is irreversible."
+msgstr ""
+"Todas as suas recomendações serão também eliminadas. Esta operação é "
+"irreversível."
+
 #: ../ng_anr/src/AnrKbMgmtCtrl.js:2786
 #: ../ng_anr/src/RiskRecommendationPartialCtrl.js:127
 msgid "Are you sure you want to delete recommendation?"

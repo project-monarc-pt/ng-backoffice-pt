@@ -1,0 +1,70 @@
+<md-dialog aria-label="{{ 'Recommendation' | translate }}" class="dialog-width">
+    <form name="recommendationForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2 ng-if="!recommendation.uuid" translate>Add a recommendation</h2>
+                <h2 ng-if="recommendation.uuid" translate>Edit a recommendation</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon aria-label="{{ 'Close dialog' | translate }}">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-input-container class="md-block">
+                    <label translate>Recommendation set</label>
+                    <md-select ng-model="recommendation.recommendationSet" ng-required="true">
+                        <md-option ng-repeat="set in recommendationSets" ng-value="set.uuid">{{ set.label }}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <md-icon>toc</md-icon>
+                    <label translate>Code</label>
+                    <input type="text" ng-model="recommendation.code" ng-required="true" md-maxlength="100" md-autofocus>
+                </md-input-container>
+
+                <div style="margin-bottom:10px">
+                    <md-icon>star</md-icon>
+                    <label translate>Importance</label>
+                </div>
+                <md-radio-group class="importanceRec" ng-model="recommendation.importance" ng-required="true">
+                    <md-radio-button ng-value="1"><span class="anr-importance">&bull;</span> {{ 'Useful information for safety, advice' | translate }}</md-radio-button>
+                    <md-radio-button ng-value="2"><span class="anr-importance">&bull;&bull;</span> {{ 'Recommendation which requires a dedicated action to solve a vulnerability or a missing best practice' | translate }}</md-radio-button>
+                    <md-radio-button ng-value="3"><span class="anr-importance">&bull;&bull;&bull;</span> {{ 'Priority recommendation' | translate }}</md-radio-button>
+                </md-radio-group>
+
+                <md-input-container class="md-block" flex>
+                    <label translate>Language</label>
+                    <md-icon>language</md-icon>
+                    <md-select ng-model="language">
+                        <md-option ng-repeat="(index, lang) in $root.languages" value="{{ index }}">
+                            <span class="fi fi-{{ $root.languages[index].flag }}"></span>
+                            {{ $root.languages[index].name | translate }}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <md-icon>description</md-icon>
+                    <label translate>Description</label>
+                    <textarea rows="6" ng-model="recommendation['description' + language]" ng-required="true"></textarea>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button ng-click="cancel()">
+                {{ 'Cancel' | translate }}
+            </md-button>
+            <md-button ng-if="!recommendation.uuid" ng-click="createAndContinue()" ng-disabled="recommendationForm.$invalid">
+                {{ 'Create and continue' | translate }}
+            </md-button>
+            <md-button ng-click="create()" ng-disabled="recommendationForm.$invalid" type="submit" class="md-accent md-hue-3">
+                {{ (recommendation.uuid ? 'Save' : 'Create') | translate }}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
