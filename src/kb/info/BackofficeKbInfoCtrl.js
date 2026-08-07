@@ -85,9 +85,9 @@
    * BO > KB > INFO
    */
   function BackofficeKbInfoCtrl($scope, $stateParams, toastr, $mdMedia, $mdDialog, gettextCatalog, TableHelperService,
-                                AssetService, ThreatService, VulnService, AmvService, MeasureService, TagService, RiskService, ObjlibService,
-                                $state, $timeout, $http, DownloadService, $rootScope, SOACategoryService, ReferentialService,
-                                MeasureMeasureService, UserService, ClientRecommendationService) {
+    AssetService, ThreatService, VulnService, AmvService, MeasureService, TagService, RiskService, ObjlibService,
+    $state, $timeout, $http, DownloadService, $rootScope, SOACategoryService, ReferentialService,
+    MeasureMeasureService, UserService, ClientRecommendationService) {
 
     $scope.tab = $stateParams.tab;
     $scope.gettext = gettextCatalog.getString;
@@ -120,7 +120,7 @@
         case 'measures':
           $scope.currentTabIndex = 3;
           break;
-        case 'recommendations':
+        case 'categories':
           $scope.currentTabIndex = 4;
           break;
         case 'amvs':
@@ -128,6 +128,9 @@
           break;
         case 'objlibs':
           $scope.currentTabIndex = 6;
+          break;
+        case 'recommendations':
+          $scope.currentTabIndex = 7;
           break;
       }
     }
@@ -1337,7 +1340,7 @@
       ClientRecommendationService.getRecommendation(recommendation.uuid).then(function (recommendationData) {
         $mdDialog.show({
           controller: ['$scope', '$mdDialog', 'ConfigService', 'recommendation', 'recommendationSets',
-          'recommendationSetUuid',
+            'recommendationSetUuid',
             CreateRecommendationKbDialogCtrl],
           templateUrl: 'views/dialogs/create.recommendation.kb.html',
           targetEvent: ev,
@@ -2405,7 +2408,7 @@
   }
 
   function CreateRecommendationKbDialogCtrl($scope, $mdDialog, ConfigService, recommendation, recommendationSets,
-                                            recommendationSetUuid) {
+    recommendationSetUuid) {
     $scope.recommendationSets = recommendationSets;
     $scope.language = ConfigService.getDefaultLanguageIndex();
 
@@ -2629,7 +2632,7 @@
   }
 
   function CreateMeasureDialogCtrl($scope, toastr, $mdMedia, $mdDialog, gettextCatalog, SOACategoryService,
-                                   MeasureService, ReferentialService, ConfigService, $q, measure, referential) {
+    MeasureService, ReferentialService, ConfigService, $q, measure, referential) {
 
     $scope.language = ConfigService.getDefaultLanguageIndex();
     $scope.categorySearchText = '';
@@ -2704,12 +2707,12 @@
             label4: category.label4,
             referential: referentialUuid
           }, function (status) {
-              category.id = status.id;
-              $scope.selectedCategoryItemChange(category);
-              toastr.success(gettextCatalog.getString('The category has been created successfully.', {
-                categoryLabel: $scope._langField(category, 'label')
-              }), gettextCatalog.getString('Creation successful'));
-            },
+            category.id = status.id;
+            $scope.selectedCategoryItemChange(category);
+            toastr.success(gettextCatalog.getString('The category has been created successfully.', {
+              categoryLabel: $scope._langField(category, 'label')
+            }), gettextCatalog.getString('Creation successful'));
+          },
 
             function (err) {
               $scope.createNewCategory(ev, category);
