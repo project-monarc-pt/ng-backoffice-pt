@@ -78,16 +78,16 @@
       '$scope', '$stateParams', 'toastr', '$mdMedia', '$mdDialog', 'gettextCatalog', 'TableHelperService',
       'AssetService', 'ThreatService', 'VulnService', 'AmvService', 'MeasureService', 'TagService', 'RiskService', 'ObjlibService', '$state',
       '$timeout', '$http', 'DownloadService', '$rootScope', 'SOACategoryService', 'ReferentialService', 'MeasureMeasureService',
-      'UserService', BackofficeKbInfoCtrl
+      'UserService', 'ClientRecommendationService', BackofficeKbInfoCtrl
     ]);
 
   /**
    * BO > KB > INFO
    */
   function BackofficeKbInfoCtrl($scope, $stateParams, toastr, $mdMedia, $mdDialog, gettextCatalog, TableHelperService,
-                                AssetService, ThreatService, VulnService, AmvService, MeasureService, TagService, RiskService, ObjlibService,
-                                $state, $timeout, $http, DownloadService, $rootScope, SOACategoryService, ReferentialService,
-                                MeasureMeasureService, UserService) {
+    AssetService, ThreatService, VulnService, AmvService, MeasureService, TagService, RiskService, ObjlibService,
+    $state, $timeout, $http, DownloadService, $rootScope, SOACategoryService, ReferentialService,
+    MeasureMeasureService, UserService, ClientRecommendationService) {
 
     $scope.tab = $stateParams.tab;
     $scope.gettext = gettextCatalog.getString;
@@ -128,6 +128,9 @@
           break;
         case 'objlibs':
           $scope.currentTabIndex = 6;
+          break;
+        case 'recommendations':
+          $scope.currentTabIndex = 7;
           break;
       }
     }
@@ -1125,6 +1128,301 @@
       });
     };
 
+    /*
+     * RECOMMENDATIONS TAB
+     */
+    $scope.recommendations = TableHelperService.build('position', 20, 1, '');
+    $scope.recommendations.activeFilter = 1;
+    $scope.recommendationsSets = [];
+
+    $scope.selectRecommendationsTab = function () {
+      $state.transitionTo('main.kb_mgmt.info_risk', {
+        'tab': 'recommendations'
+      });
+      $scope.updateRecommendationsSets();
+    };
+
+    $scope.deselectRecommendationsTab = function () {
+      TableHelperService.unwatchSearch($scope.recommendations);
+      $scope.recommendations.selected = [];
+    };
+
+    $scope.updateRecommendationsSets = function () {
+      $scope.updatingRecommendationsSets = false;
+      ClientRecommendationService.getRecommendationsSets({
+        order: 'label'
+      }).then(function (data) {
+        $scope.recommendationsSets.items = data;
+        $scope.updatingRecommendationsSets = true;
+      });
+    };
+
+    $scope.selectRecommendationSet = function (recommendationSetUuid, index) {
+      $scope.recSetTabSelected = index;
+      $scope.recommendation_set_uuid = recommendationSetUuid;
+
+      var initRecommendationsFilter = true;
+      $scope.$watch('recommendations.activeFilter', function () {
+        if (initRecommendationsFilter) {
+          initRecommendationsFilter = false;
+        } else {
+          $scope.updateRecommendations();
+        }
+      });
+      TableHelperService.watchSearch($scope, 'recommendations.query.filter', $scope.recommendations.query,
+        $scope.updateRecommendations, $scope.recommendations);
+    };
+
+    $scope.deselectRecommendationsSetTab = function () {
+      TableHelperService.removeFilter($scope.recommendations);
+      $scope.recommendations.selected = [];
+    };
+
+    $scope.removeRecommendationsFilter = function () {
+      TableHelperService.removeFilter($scope.recommendations);
+    };
+
+    $scope.updateRecommendations = function () {
+      var query = angular.copy($scope.recommendations.query);
+      query.status = $scope.recommendations.activeFilter;
+      query.recommendationSet = $scope.recommendation_set_uuid;
+
+      if ($scope.recommendations.previousQueryOrder != $scope.recommendations.query.order) {
+        $scope.recommendations.query.page = query.page = 1;
+        $scope.recommendations.previousQueryOrder = $scope.recommendations.query.order;
+      }
+
+      $scope.recommendations.promise = ClientRecommendationService.getRecommendations(query);
+      $scope.recommendations.promise.then(
+        function (data) {
+          $scope.recommendations.items = data;
+        }
+      );
+    };
+
+    $scope.toggleRecommendationStatus = function (recommendation) {
+      ClientRecommendationService.patchRecommendation(recommendation.uuid, {
+        status: recommendation.status ? 0 : 1
+      }, function () {
+        recommendation.status = recommendation.status ? 0 : 1;
+      });
+    };
+
+    $scope.createNewRecommendationSet = function (ev, recommendationSet) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+
+      $mdDialog.show({
+        controller: ['$scope', '$mdDialog', 'recommendationSet', CreateRecommendationSetDialogCtrl],
+        templateUrl: 'views/dialogs/create.recommendationsSet.kb.html',
+        targetEvent: ev,
+        preserveScope: false,
+        scope: $scope.$dialogScope.$new(),
+        clickOutsideToClose: false,
+        fullscreen: useFullScreen,
+        locals: {
+          'recommendationSet': recommendationSet
+        }
+      })
+        .then(function (recommendationSet) {
+          ClientRecommendationService.createRecommendationSet(recommendationSet,
+            function () {
+              $scope.recSetTabSelected = $scope.recommendationsSets.items.count;
+              $scope.updateRecommendationsSets();
+              toastr.success(gettextCatalog.getString('The recommendation set has been created successfully.'),
+                gettextCatalog.getString('Creation successful'));
+            },
+            function () {
+              $scope.createNewRecommendationSet(ev, recommendationSet);
+            }
+          );
+        }, function (reject) {
+          $scope.handleRejectionDialog(reject);
+        });
+    };
+
+    $scope.editRecommendationSet = function (ev, recommendationSetUuid) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+
+      ClientRecommendationService.getRecommendationSet(recommendationSetUuid).then(function (recommendationSetData) {
+        $mdDialog.show({
+          controller: ['$scope', '$mdDialog', 'recommendationSet', CreateRecommendationSetDialogCtrl],
+          templateUrl: 'views/dialogs/create.recommendationsSet.kb.html',
+          targetEvent: ev,
+          preserveScope: false,
+          scope: $scope.$dialogScope.$new(),
+          clickOutsideToClose: false,
+          fullscreen: useFullScreen,
+          locals: {
+            'recommendationSet': recommendationSetData
+          }
+        })
+          .then(function (recommendationSet) {
+            ClientRecommendationService.updateRecommendationSet(recommendationSet,
+              function () {
+                $scope.updateRecommendationsSets();
+                toastr.success(gettextCatalog.getString('The recommendation set has been edited successfully.'),
+                  gettextCatalog.getString('Edition successful'));
+              },
+              function () {
+                $scope.editRecommendationSet(ev, recommendationSetUuid);
+              }
+            );
+          }, function (reject) {
+            $scope.handleRejectionDialog(reject);
+          });
+      });
+    };
+
+    $scope.deleteRecommendationSet = function (ev, recommendationSetUuid) {
+      var confirm = $mdDialog.confirm()
+        .title(gettextCatalog.getString('Are you sure you want to delete recommendation set?'))
+        .textContent(gettextCatalog.getString('All its recommendations will be deleted too. This operation is irreversible.'))
+        .targetEvent(ev)
+        .ok(gettextCatalog.getString('Delete'))
+        .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function () {
+        ClientRecommendationService.deleteRecommendationSet({ id: recommendationSetUuid },
+          function () {
+            $scope.recSetTabSelected = 0;
+            $scope.updateRecommendationsSets();
+            toastr.success(gettextCatalog.getString('The recommendation set has been deleted.'),
+              gettextCatalog.getString('Deletion successful'));
+          }
+        );
+      });
+    };
+
+    $scope.createNewRecommendation = function (ev, recommendation) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+
+      $mdDialog.show({
+        controller: ['$scope', '$mdDialog', 'ConfigService', 'recommendation', 'recommendationSets',
+          'recommendationSetUuid',
+          CreateRecommendationKbDialogCtrl],
+        templateUrl: 'views/dialogs/create.recommendation.kb.html',
+        targetEvent: ev,
+        preserveScope: false,
+        scope: $scope.$dialogScope.$new(),
+        clickOutsideToClose: false,
+        fullscreen: useFullScreen,
+        locals: {
+          'recommendation': recommendation,
+          'recommendationSets': $scope.recommendationsSets.items['recommendations-sets'],
+          'recommendationSetUuid': $scope.recommendation_set_uuid
+        }
+      })
+        .then(function (recommendation) {
+          var cont = recommendation.cont;
+          recommendation.cont = undefined;
+
+          ClientRecommendationService.createRecommendation(recommendation,
+            function () {
+              $scope.updateRecommendations();
+              $scope.updateRecommendationsSets();
+              toastr.success(gettextCatalog.getString('The recommendation has been created successfully.'),
+                gettextCatalog.getString('Creation successful'));
+              if (cont) {
+                $scope.createNewRecommendation(ev);
+              }
+            },
+            function () {
+              $scope.createNewRecommendation(ev, recommendation);
+            }
+          );
+        }, function (reject) {
+          $scope.handleRejectionDialog(reject);
+        });
+    };
+
+    $scope.editRecommendation = function (ev, recommendation) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+
+      ClientRecommendationService.getRecommendation(recommendation.uuid).then(function (recommendationData) {
+        $mdDialog.show({
+          controller: ['$scope', '$mdDialog', 'ConfigService', 'recommendation', 'recommendationSets',
+            'recommendationSetUuid',
+            CreateRecommendationKbDialogCtrl],
+          templateUrl: 'views/dialogs/create.recommendation.kb.html',
+          targetEvent: ev,
+          preserveScope: false,
+          scope: $scope.$dialogScope.$new(),
+          clickOutsideToClose: false,
+          fullscreen: useFullScreen,
+          locals: {
+            'recommendation': recommendationData,
+            'recommendationSets': $scope.recommendationsSets.items['recommendations-sets'],
+            'recommendationSetUuid': $scope.recommendation_set_uuid
+          }
+        })
+          .then(function (recommendation) {
+            ClientRecommendationService.updateRecommendation(recommendation,
+              function () {
+                $scope.updateRecommendations();
+                $scope.updateRecommendationsSets();
+                toastr.success(gettextCatalog.getString('The recommendation has been edited successfully.'),
+                  gettextCatalog.getString('Edition successful'));
+              },
+              function () {
+                $scope.editRecommendation(ev, recommendation);
+              }
+            );
+          }, function (reject) {
+            $scope.handleRejectionDialog(reject);
+          });
+      });
+    };
+
+    $scope.deleteRecommendation = function (ev, item) {
+      var confirm = $mdDialog.confirm()
+        .title(gettextCatalog.getString('Are you sure you want to delete recommendation?'))
+        .textContent(gettextCatalog.getString('This operation is irreversible.'))
+        .targetEvent(ev)
+        .ok(gettextCatalog.getString('Delete'))
+        .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function () {
+        ClientRecommendationService.deleteRecommendation({ id: item.uuid },
+          function () {
+            $scope.updateRecommendations();
+            $scope.updateRecommendationsSets();
+            $scope.recommendations.selected = $scope.recommendations.selected.filter(function (selected) {
+              return selected.uuid != item.uuid;
+            });
+            toastr.success(gettextCatalog.getString('The recommendation has been deleted.'),
+              gettextCatalog.getString('Deletion successful'));
+          }
+        );
+      });
+    };
+
+    $scope.deleteRecommendationMass = function (ev) {
+      var count = $scope.recommendations.selected.length;
+
+      var confirm = $mdDialog.confirm()
+        .title(gettextCatalog.getString('Are you sure you want to delete the {{count}} selected recommendations?', {
+          count: count
+        }))
+        .textContent(gettextCatalog.getString('This operation is irreversible.'))
+        .targetEvent(ev)
+        .ok(gettextCatalog.getString('Delete'))
+        .cancel(gettextCatalog.getString('Cancel'));
+      $mdDialog.show(confirm).then(function () {
+        var ids = [];
+        for (var i = 0; i < $scope.recommendations.selected.length; ++i) {
+          ids.push($scope.recommendations.selected[i].uuid);
+        }
+
+        ClientRecommendationService.deleteMassRecommendation(ids, function () {
+          $scope.updateRecommendations();
+          $scope.updateRecommendationsSets();
+          toastr.success(gettextCatalog.getString('{{count}} recommendations have been deleted.', {
+            count: ids.length
+          }), gettextCatalog.getString('Deletion successful'));
+        });
+
+        $scope.recommendations.selected = [];
+      });
+    };
+
 
     /*
      * AMVS TAB
@@ -2095,6 +2393,76 @@
     }
   }
 
+  function CreateRecommendationSetDialogCtrl($scope, $mdDialog, recommendationSet) {
+    $scope.recommendationSet = (recommendationSet != undefined && recommendationSet != null)
+      ? recommendationSet
+      : { label: '' };
+
+    $scope.cancel = function () {
+      $mdDialog.cancel();
+    };
+
+    $scope.create = function () {
+      $mdDialog.hide($scope.recommendationSet);
+    };
+  }
+
+  function CreateRecommendationKbDialogCtrl($scope, $mdDialog, ConfigService, recommendation, recommendationSets,
+    recommendationSetUuid) {
+    $scope.recommendationSets = recommendationSets;
+    $scope.language = ConfigService.getDefaultLanguageIndex();
+
+    if (recommendation != undefined && recommendation != null) {
+      $scope.recommendation = recommendation;
+      /* The API returns the set as an object but expects its uuid back. */
+      if ($scope.recommendation.recommendationSet != undefined
+        && $scope.recommendation.recommendationSet.uuid != undefined
+      ) {
+        $scope.recommendation.recommendationSet = $scope.recommendation.recommendationSet.uuid;
+      }
+    } else {
+      $scope.recommendation = {
+        recommendationSet: recommendationSetUuid,
+        code: '',
+        description1: '',
+        description2: '',
+        description3: '',
+        description4: '',
+        importance: 2
+      };
+    }
+
+    /* Fills the untranslated languages with the text that was actually typed. Anchored on the
+       selected language, not on the default one: the referential dialog anchors on the default and
+       leaves everything empty when the admin edits in another language. */
+    var fillEmptyLanguages = function () {
+      var typed = $scope.recommendation['description' + $scope.language];
+      if (!typed) {
+        return;
+      }
+      for (var i = 1; i <= 4; i++) {
+        if (!$scope.recommendation['description' + i]) {
+          $scope.recommendation['description' + i] = typed;
+        }
+      }
+    };
+
+    $scope.cancel = function () {
+      $mdDialog.cancel();
+    };
+
+    $scope.create = function () {
+      fillEmptyLanguages();
+      $mdDialog.hide($scope.recommendation);
+    };
+
+    $scope.createAndContinue = function () {
+      fillEmptyLanguages();
+      $scope.recommendation.cont = true;
+      $mdDialog.hide($scope.recommendation);
+    };
+  }
+
   function CreateReferentialDialogCtrl($scope, $mdDialog, ReferentialService, ConfigService, referential) {
     $scope.language = ConfigService.getDefaultLanguageIndex();
     var defaultLang = angular.copy($scope.language);
@@ -2264,7 +2632,7 @@
   }
 
   function CreateMeasureDialogCtrl($scope, toastr, $mdMedia, $mdDialog, gettextCatalog, SOACategoryService,
-                                   MeasureService, ReferentialService, ConfigService, $q, measure, referential) {
+    MeasureService, ReferentialService, ConfigService, $q, measure, referential) {
 
     $scope.language = ConfigService.getDefaultLanguageIndex();
     $scope.categorySearchText = '';
@@ -2339,12 +2707,12 @@
             label4: category.label4,
             referential: referentialUuid
           }, function (status) {
-              category.id = status.id;
-              $scope.selectedCategoryItemChange(category);
-              toastr.success(gettextCatalog.getString('The category has been created successfully.', {
-                categoryLabel: $scope._langField(category, 'label')
-              }), gettextCatalog.getString('Creation successful'));
-            },
+            category.id = status.id;
+            $scope.selectedCategoryItemChange(category);
+            toastr.success(gettextCatalog.getString('The category has been created successfully.', {
+              categoryLabel: $scope._langField(category, 'label')
+            }), gettextCatalog.getString('Creation successful'));
+          },
 
             function (err) {
               $scope.createNewCategory(ev, category);
