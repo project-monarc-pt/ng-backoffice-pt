@@ -5964,6 +5964,34 @@ msgstr "Se não solicitou uma nova palavra-passe, pedimos que ignore este e-mail
 msgid "Best regards,"
 msgstr "Com os melhores cumprimentos,"
 
+#: ../vendor/monarc/core/src/Service/PasswordService.php
+msgid "Your account has been created"
+msgstr "A sua conta foi criada"
+
+#: ../vendor/monarc/core/src/Service/PasswordService.php
+msgid "An account has been created for you. You can access the platform at the address below :"
+msgstr "Foi criada uma conta para si. Pode aceder à plataforma no endereço abaixo:"
+
+#: ../vendor/monarc/core/src/Service/PasswordService.php
+msgid "To set your password, use the \"Password forgotten?\" option on the login screen."
+msgstr "Para definir a sua palavra-passe, use a opção \"Esqueceu-se da palavra-passe?\" no ecrã de início de sessão."
+
+#: ../vendor/monarc/core/src/Service/PasswordService.php
+msgid "If an administrator already gave you a password, you can log in with it directly."
+msgstr "Se um administrador já lhe forneceu uma palavra-passe, pode iniciar sessão com ela directamente."
+
+#: ../vendor/monarc/core/src/Service/PasswordService.php
+msgid "Your password has been reset"
+msgstr "A sua palavra-passe foi reposta"
+
+#: ../vendor/monarc/core/src/Service/PasswordService.php
+msgid "Your password has been reset by an administrator."
+msgstr "A sua palavra-passe foi reposta por um administrador."
+
+#: ../vendor/monarc/core/src/Service/PasswordService.php
+msgid "If you did not expect this change, please contact your administrator."
+msgstr "Se não estava à espera desta alteração, contacte o seu administrador."
+
 
 msgid "Activate background import"
 msgstr "Ativar importação em segundo plano"
