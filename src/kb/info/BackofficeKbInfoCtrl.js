@@ -1135,9 +1135,17 @@
     $scope.recommendations.activeFilter = 1;
     $scope.recommendationsSets = [];
 
+    $scope.recommendations_referentials = [];
+
     $scope.selectRecommendationsTab = function () {
       $state.transitionTo('main.kb_mgmt.info_risk', {
         'tab': 'recommendations'
+      });
+      /* Needed by the recommendation dialog to offer the controls, grouped by referential. */
+      ReferentialService.getReferentials({
+        order: 'createdAt'
+      }).then(function (data) {
+        $scope.recommendations_referentials = data['referentials'];
       });
       $scope.updateRecommendationsSets();
     };
@@ -1296,8 +1304,8 @@
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
       $mdDialog.show({
-        controller: ['$scope', '$mdDialog', 'ConfigService', 'recommendation', 'recommendationSets',
-          'recommendationSetUuid',
+        controller: ['$scope', '$mdDialog', 'ConfigService', 'MeasureService', '$q', 'recommendation',
+          'recommendationSets', 'recommendationSetUuid', 'referentials',
           CreateRecommendationKbDialogCtrl],
         templateUrl: 'views/dialogs/create.recommendation.kb.html',
         targetEvent: ev,
@@ -1308,7 +1316,8 @@
         locals: {
           'recommendation': recommendation,
           'recommendationSets': $scope.recommendationsSets.items['recommendations-sets'],
-          'recommendationSetUuid': $scope.recommendation_set_uuid
+          'recommendationSetUuid': $scope.recommendation_set_uuid,
+          'referentials': $scope.recommendations_referentials
         }
       })
         .then(function (recommendation) {
@@ -1339,8 +1348,8 @@
 
       ClientRecommendationService.getRecommendation(recommendation.uuid).then(function (recommendationData) {
         $mdDialog.show({
-          controller: ['$scope', '$mdDialog', 'ConfigService', 'recommendation', 'recommendationSets',
-            'recommendationSetUuid',
+          controller: ['$scope', '$mdDialog', 'ConfigService', 'MeasureService', '$q', 'recommendation',
+            'recommendationSets', 'recommendationSetUuid', 'referentials',
             CreateRecommendationKbDialogCtrl],
           templateUrl: 'views/dialogs/create.recommendation.kb.html',
           targetEvent: ev,
@@ -1351,7 +1360,8 @@
           locals: {
             'recommendation': recommendationData,
             'recommendationSets': $scope.recommendationsSets.items['recommendations-sets'],
-            'recommendationSetUuid': $scope.recommendation_set_uuid
+            'recommendationSetUuid': $scope.recommendation_set_uuid,
+            'referentials': $scope.recommendations_referentials
           }
         })
           .then(function (recommendation) {
@@ -2407,9 +2417,11 @@
     };
   }
 
-  function CreateRecommendationKbDialogCtrl($scope, $mdDialog, ConfigService, recommendation, recommendationSets,
-    recommendationSetUuid) {
+  function CreateRecommendationKbDialogCtrl($scope, $mdDialog, ConfigService, MeasureService, $q, recommendation,
+    recommendationSets, recommendationSetUuid, referentials) {
     $scope.recommendationSets = recommendationSets;
+    $scope.recommendationReferentials = referentials || [];
+    $scope.selectedReferential = $scope.recommendationReferentials[0] || null;
     $scope.language = ConfigService.getDefaultLanguageIndex();
 
     if (recommendation != undefined && recommendation != null) {
@@ -2432,6 +2444,91 @@
       };
     }
 
+    /* The controls this recommendation implements, grouped by referential for the chips, the way
+       the AMV dialog groups them. The API returns objects and expects a flat list of uuids back. */
+    $scope.recommendationMeasures = {};
+    /* With no referential to show, the dialog can neither display nor edit the controls. Saying
+       nothing about them is the only safe payload: the API leaves the existing links alone when the
+       field is absent. An installation that genuinely has no referential has no link to clear
+       either, so nothing is lost by staying quiet. */
+    var canEditMeasures = $scope.recommendationReferentials.length > 0;
+    /* Links the chips cannot represent -- a control whose referential is null, or one from a
+       referential that is not listed. Carried through untouched instead of dropped. */
+    var unlistedMeasureUuids = [];
+
+    $scope.recommendationReferentials.forEach(function (ref) {
+      $scope.recommendationMeasures[ref.uuid] = [];
+    });
+    angular.forEach($scope.recommendation.measures || [], function (measure) {
+      /* A previous submit that failed hands the payload back with plain uuids. */
+      if (angular.isString(measure)) {
+        unlistedMeasureUuids.push(measure);
+
+        return;
+      }
+      var referentialUuid = measure.referential && measure.referential.uuid;
+      if (referentialUuid && $scope.recommendationMeasures[referentialUuid] !== undefined) {
+        $scope.recommendationMeasures[referentialUuid].push(measure);
+
+        return;
+      }
+      unlistedMeasureUuids.push(measure.uuid);
+    });
+
+    $scope.selectRecommendationReferential = function (referential) {
+      $scope.selectedReferential = referential;
+    };
+
+    /* Offers the controls of the selected referential, minus the ones already picked. */
+    $scope.queryMeasureSearch = function (query) {
+      var promise = $q.defer();
+      if ($scope.selectedReferential === null) {
+        promise.resolve([]);
+
+        return promise.promise;
+      }
+
+      var referentialUuid = $scope.selectedReferential.uuid;
+      MeasureService.getMeasures({
+        filter: query,
+        referential: referentialUuid,
+        order: 'code'
+      }).then(function (data) {
+        var alreadyPicked = $scope.recommendationMeasures[referentialUuid] || [];
+        promise.resolve(data.measures.filter(function (measure) {
+          return !alreadyPicked.some(function (picked) {
+            return picked.uuid === measure.uuid;
+          });
+        }));
+      }, function () {
+        promise.reject();
+      });
+
+      return promise.promise;
+    };
+
+    /* Returns what to send, without touching $scope.recommendation: the create error handler reopens
+       the dialog with the very object it resolved with, and rewriting the controls into bare uuids
+       there would make the reopened dialog unable to group them again. */
+    var getRecommendationToSubmit = function () {
+      var recommendationToSubmit = angular.extend({}, $scope.recommendation);
+      if (!canEditMeasures) {
+        delete recommendationToSubmit.measures;
+
+        return recommendationToSubmit;
+      }
+
+      var uuids = unlistedMeasureUuids.slice();
+      Object.keys($scope.recommendationMeasures).forEach(function (referentialUuid) {
+        $scope.recommendationMeasures[referentialUuid].forEach(function (measure) {
+          uuids.push(measure.uuid);
+        });
+      });
+      recommendationToSubmit.measures = uuids;
+
+      return recommendationToSubmit;
+    };
+
     /* Fills the untranslated languages with the text that was actually typed. Anchored on the
        selected language, not on the default one: the referential dialog anchors on the default and
        leaves everything empty when the admin edits in another language. */
@@ -2453,13 +2550,14 @@
 
     $scope.create = function () {
       fillEmptyLanguages();
-      $mdDialog.hide($scope.recommendation);
+      $mdDialog.hide(getRecommendationToSubmit());
     };
 
     $scope.createAndContinue = function () {
       fillEmptyLanguages();
-      $scope.recommendation.cont = true;
-      $mdDialog.hide($scope.recommendation);
+      var recommendationToSubmit = getRecommendationToSubmit();
+      recommendationToSubmit.cont = true;
+      $mdDialog.hide(recommendationToSubmit);
     };
   }
 
