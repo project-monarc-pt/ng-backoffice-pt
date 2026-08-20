@@ -2447,12 +2447,32 @@
     /* The controls this recommendation implements, grouped by referential for the chips, the way
        the AMV dialog groups them. The API returns objects and expects a flat list of uuids back. */
     $scope.recommendationMeasures = {};
+    /* With no referential to show, the dialog can neither display nor edit the controls. Saying
+       nothing about them is the only safe payload: the API leaves the existing links alone when the
+       field is absent. An installation that genuinely has no referential has no link to clear
+       either, so nothing is lost by staying quiet. */
+    var canEditMeasures = $scope.recommendationReferentials.length > 0;
+    /* Links the chips cannot represent -- a control whose referential is null, or one from a
+       referential that is not listed. Carried through untouched instead of dropped. */
+    var unlistedMeasureUuids = [];
+
     $scope.recommendationReferentials.forEach(function (ref) {
-      $scope.recommendationMeasures[ref.uuid] = ($scope.recommendation.measures || []).filter(
-        function (measure) {
-          return measure.referential !== undefined && measure.referential.uuid === ref.uuid;
-        }
-      );
+      $scope.recommendationMeasures[ref.uuid] = [];
+    });
+    angular.forEach($scope.recommendation.measures || [], function (measure) {
+      /* A previous submit that failed hands the payload back with plain uuids. */
+      if (angular.isString(measure)) {
+        unlistedMeasureUuids.push(measure);
+
+        return;
+      }
+      var referentialUuid = measure.referential && measure.referential.uuid;
+      if (referentialUuid && $scope.recommendationMeasures[referentialUuid] !== undefined) {
+        $scope.recommendationMeasures[referentialUuid].push(measure);
+
+        return;
+      }
+      unlistedMeasureUuids.push(measure.uuid);
     });
 
     $scope.selectRecommendationReferential = function (referential) {
@@ -2487,14 +2507,26 @@
       return promise.promise;
     };
 
-    var flattenMeasures = function () {
-      var uuids = [];
+    /* Returns what to send, without touching $scope.recommendation: the create error handler reopens
+       the dialog with the very object it resolved with, and rewriting the controls into bare uuids
+       there would make the reopened dialog unable to group them again. */
+    var getRecommendationToSubmit = function () {
+      var recommendationToSubmit = angular.extend({}, $scope.recommendation);
+      if (!canEditMeasures) {
+        delete recommendationToSubmit.measures;
+
+        return recommendationToSubmit;
+      }
+
+      var uuids = unlistedMeasureUuids.slice();
       Object.keys($scope.recommendationMeasures).forEach(function (referentialUuid) {
         $scope.recommendationMeasures[referentialUuid].forEach(function (measure) {
           uuids.push(measure.uuid);
         });
       });
-      $scope.recommendation.measures = uuids;
+      recommendationToSubmit.measures = uuids;
+
+      return recommendationToSubmit;
     };
 
     /* Fills the untranslated languages with the text that was actually typed. Anchored on the
@@ -2518,15 +2550,14 @@
 
     $scope.create = function () {
       fillEmptyLanguages();
-      flattenMeasures();
-      $mdDialog.hide($scope.recommendation);
+      $mdDialog.hide(getRecommendationToSubmit());
     };
 
     $scope.createAndContinue = function () {
       fillEmptyLanguages();
-      flattenMeasures();
-      $scope.recommendation.cont = true;
-      $mdDialog.hide($scope.recommendation);
+      var recommendationToSubmit = getRecommendationToSubmit();
+      recommendationToSubmit.cont = true;
+      $mdDialog.hide(recommendationToSubmit);
     };
   }
 
