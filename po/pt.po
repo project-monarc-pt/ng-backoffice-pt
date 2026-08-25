@@ -4076,7 +4076,7 @@ msgstr "Servidores"
 
 #: views/account.html:82
 msgid "Set up"
-msgstr "Implementação"
+msgstr "Configurar"
 
 #: ../ng_anr/src/AnrSoaSheetCtrl.js:124 ../ng_anr/src/AnrSoaSheetCtrl.js:215
 #: ../ng_anr/views/_oprisk_sheet.html:158 ../ng_anr/views/_risk_sheet.html:156
